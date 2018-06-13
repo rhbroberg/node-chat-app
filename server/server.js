@@ -14,16 +14,13 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => { // eslint-disable-line no-unused-vars// eslint-disable-line no-unused-vars
     console.log('new user connected');
 
-    var now = new Date().getTime();
-
-    socket.emit('newMessage', {
-        from: 'rhb',
-        text: 'dinner soon?',
-        createdAt: now
-    });
-
     socket.on('createMessage', (message) => {
         console.log('message received: ', message);
+        io.emit('newMessage', {
+            from: message.from,
+            text: message.text,
+            createdAt: new Date().getTime()
+        });
     });
 
     socket.on('disconnect', (socket) => { // eslint-disable-line no-unused-vars
