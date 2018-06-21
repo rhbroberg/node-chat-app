@@ -1,3 +1,5 @@
+import jQuery from 'jquery';
+
 var socket = io(); // eslint-disable-line no-undef
 
 socket.on('connect', function() {
