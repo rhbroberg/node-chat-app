@@ -1,4 +1,4 @@
-import jQuery from 'jquery';
+/* global jQuery */
 
 var socket = io(); // eslint-disable-line no-undef
 
