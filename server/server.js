@@ -21,7 +21,7 @@ io.on('connection', (socket) => { // eslint-disable-line no-unused-vars// eslint
     socket.on('createMessage', (message, callback) => {
         console.log('message received: ', message);
         io.emit('newMessage', generateMessage(message.from, message.text));
-        callback('this is from the server');
+        callback();
     });
 
     socket.on('createLocationMessage', (coords) => {
