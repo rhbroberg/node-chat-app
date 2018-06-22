@@ -24,6 +24,10 @@ io.on('connection', (socket) => { // eslint-disable-line no-unused-vars// eslint
         callback('this is from the server');
     });
 
+    socket.on('createLocationMessage', (coords) => {
+        io.emit('newMessage', generateMessage('Admin', `${coords.latitude}, ${coords.longitude}`));
+    });
+
     socket.on('disconnect', (socket) => { // eslint-disable-line no-unused-vars
         console.log('user disconnected');
     });

@@ -1,6 +1,6 @@
-/* global jQuery */
+/* global jQuery navigator alert io */
 
-var socket = io(); // eslint-disable-line no-undef
+var socket = io();
 
 socket.on('connect', function() {
     console.log('connected to server');
@@ -27,5 +27,22 @@ jQuery('#message-form').on('submit', function(e) {
         text: jQuery('[name=message]').val()
     }, function() {
 
+    });
+});
+
+var locationButton = jQuery('#send-location');
+locationButton.on('click', function() {
+    if (!navigator.geolocation) {
+        return alert('geolocation not supported by your browser');
+    }
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+        console.log(position);
+        socket.emit('createLocationMessage', {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+        });
+    }, function() {
+        alert('unable to fetch location');
     });
 });
