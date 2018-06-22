@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000;
 var app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
-const { generateMessage } = require('./utils/message');
+const { generateMessage, generateLocationMessage } = require('./utils/message');
 
 app.use(express.static(publicPath));
 
@@ -25,7 +25,7 @@ io.on('connection', (socket) => { // eslint-disable-line no-unused-vars// eslint
     });
 
     socket.on('createLocationMessage', (coords) => {
-        io.emit('newMessage', generateMessage('Admin', `${coords.latitude}, ${coords.longitude}`));
+        io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
     });
 
     socket.on('disconnect', (socket) => { // eslint-disable-line no-unused-vars
